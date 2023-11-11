@@ -1,6 +1,6 @@
 import styles from './List.module.scss';
 import Column from '../Column/Column';
-import icon from '../Column/Column.module.scss'
+
 
 const List = () => {
     return (
@@ -10,7 +10,7 @@ const List = () => {
             </header>
             <p className={styles.description}>Interesting things I want to check out</p>
             <section className={styles.columns}>
-                <Column title="Books" icon="books" />
+                <Column title="Books" icon="book" />
                 <Column title="Movies" icon="film" />
                 <Column title="Games" icon= "gamepad"/>
             </section>
