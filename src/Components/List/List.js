@@ -1,14 +1,16 @@
 import styles from './List.module.scss';
 import Column from '../Column/Column';
-import { useState } from 'react';
+//import { useState } from 'react';
 //import { useEffect } from 'react';
-import shortid from 'shortid';
 import ColumnForm from '../ColumnForm/ColumnForm';
+import { useSelector } from 'react-redux';
 
 
 const List = () => {
 
-    const addCard = (newCard, columnId) => {
+    const columns = useSelector(state => state.columns);
+
+  /*  const addCard = (newCard, columnId) => {
         const columnsUpdated = columns.map(column => {
             if(column.id === columnId)
                 return { ...column, cards: [...column.cards, { id: shortid(), title: newCard.title }]}
@@ -58,10 +60,10 @@ const List = () => {
 
 
 
-    const addColumn = newColumn => {
+    /*const addColumn = newColumn => {
         setColumns([...columns, { id: shortid(), title: newColumn.title, icon: newColumn.icon, cards: [] }]);
     };
-   
+   */
     /*const addColumn = newColumn => {
 		setColumns([...columns, { id: shortid(), title: newColumn.title, icon: newColumn.icon }]);
     };
@@ -86,20 +88,22 @@ const List = () => {
 
   	}, []); */
 
-    return (
+      return (
         <div className={styles.list}>
-            <header className={styles.header}>
-                <h1 className={styles.title}>Things to do <span>soon!</span></h1>
-            </header>
-            <p className={styles.description}>Interesting things I want to check out</p>
-            <section className={styles.columns}>
-                {columns.map(column => <Column key={column.id} id={column.id} title={column.title} icon={column.icon} cards={column.cards} addCard={addCard} />)}
-            </section>
-            <ColumnForm action={addColumn} />
-
+          <header className={styles.header}>
+            <h2 className={styles.title}>Things to do<span>soon!</span></h2>
+          </header>
+          <p className={styles.description}>Interesting things I want to check out</p>
+          <section className={styles.columns}>
+            {columns.map(column =>
+              <Column
+                key={column.id}
+                {...column}  />
+            )}
+          </section>
+          <ColumnForm />
         </div>
-    );  
-  
+      );
 };
 
   export default List;
