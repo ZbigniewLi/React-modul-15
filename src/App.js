@@ -2,16 +2,18 @@ import Hero from './Components/Hero/Hero'
 import SearchForm from './Components/SearchForm/SearchForm'
 import List from './Components/List/List'
 import Container from './Components/Container/Container'
+import NavBar from './Components/NavBar/NavBar'
 
 
 
 const App = () => {
     return (
       <div>
+        <Container>
         <Hero />
         <SearchForm />
         <List />
-        <Container />
+        </Container>
       </div>  
     ); 
 };

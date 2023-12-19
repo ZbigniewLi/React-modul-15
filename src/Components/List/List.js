@@ -4,11 +4,12 @@ import Column from '../Column/Column';
 //import { useEffect } from 'react';
 import ColumnForm from '../ColumnForm/ColumnForm';
 import { useSelector } from 'react-redux';
+import { getColumns } from '../../redux/store';
 
 
 const List = () => {
 
-    const columns = useSelector(state => state.columns);
+    const columns = useSelector(getColumns);
 
   /*  const addCard = (newCard, columnId) => {
         const columnsUpdated = columns.map(column => {
