@@ -5,59 +5,72 @@ import Column from '../Column/Column';
 import ColumnForm from '../ColumnForm/ColumnForm';
 import { useSelector } from 'react-redux';
 import { getColumns } from '../../redux/store';
+import { getListById } from '../../redux/store';
+import { getColumnsByList } from '../../redux/store';
+import { useParams } from 'react-router';
+import SearchForm from '../SearchForm/SearchForm';
+import { Navigate } from 'react-router-dom';
+
 
 
 const List = () => {
 
-    const columns = useSelector(getColumns);
+    //const listId = 1;
+    const { listId } = useParams();
 
-  /*  const addCard = (newCard, columnId) => {
-        const columnsUpdated = columns.map(column => {
-            if(column.id === columnId)
-                return { ...column, cards: [...column.cards, { id: shortid(), title: newCard.title }]}
-            else
-                return column
-        })
-    
-        setColumns(columnsUpdated);
-    
-    };
+    //const columns = useSelector(getColumns);
+    const listData = useSelector(state => getListById(state, listId));
+    const columns = useSelector(state => getColumnsByList(state, listId));
 
-    const [columns, setColumns] = useState([
-        {
-            id: 1,
-            title: 'Books',
-            icon: 'book',
-            cards: [
-                { id: 1, title: 'This is Going to Hurt' },
-                { id: 2, title: 'Interpreter of Maladies' }
-            ]
-        },
-        {
-            id: 2,
-            title: 'Movies',
-            icon: 'film',
-            cards: [
-                { id: 1, title: 'Harry Potter' },
-                { id: 2, title: 'Star Wars' }
-            ]
-        },
-        {
-            id: 3,
-            title: 'Games',
-            icon: 'gamepad',
-            cards: [
-                { id: 1, title: 'The Witcher' },
-                { id: 2, title: 'Skyrim' }
-            ]
-        }
-    ]);
 
-    /*const [columns, setColumns] = useState([
-        { id: 1, title: 'Books', icon: 'book' },
-        { id: 2, title: 'Movies', icon: 'film' },
-        { id: 3, title: 'Games', icon: 'gamepad' }
-    ]);*/
+
+    /*  const addCard = (newCard, columnId) => {
+          const columnsUpdated = columns.map(column => {
+              if(column.id === columnId)
+                  return { ...column, cards: [...column.cards, { id: shortid(), title: newCard.title }]}
+              else
+                  return column
+          })
+      
+          setColumns(columnsUpdated);
+      
+      };
+  
+      const [columns, setColumns] = useState([
+          {
+              id: 1,
+              title: 'Books',
+              icon: 'book',
+              cards: [
+                  { id: 1, title: 'This is Going to Hurt' },
+                  { id: 2, title: 'Interpreter of Maladies' }
+              ]
+          },
+          {
+              id: 2,
+              title: 'Movies',
+              icon: 'film',
+              cards: [
+                  { id: 1, title: 'Harry Potter' },
+                  { id: 2, title: 'Star Wars' }
+              ]
+          },
+          {
+              id: 3,
+              title: 'Games',
+              icon: 'gamepad',
+              cards: [
+                  { id: 1, title: 'The Witcher' },
+                  { id: 2, title: 'Skyrim' }
+              ]
+          }
+      ]);
+  
+      /*const [columns, setColumns] = useState([
+          { id: 1, title: 'Books', icon: 'book' },
+          { id: 2, title: 'Movies', icon: 'film' },
+          { id: 3, title: 'Games', icon: 'gamepad' }
+      ]);*/
 
 
 
@@ -66,11 +79,11 @@ const List = () => {
     };
    */
     /*const addColumn = newColumn => {
-		setColumns([...columns, { id: shortid(), title: newColumn.title, icon: newColumn.icon }]);
+        setColumns([...columns, { id: shortid(), title: newColumn.title, icon: newColumn.icon }]);
     };
 
     /*const addColumn = newColumn => {
-		setColumns([...columns, { id: shortid(), title: newColumn.title }]);
+        setColumns([...columns, { id: shortid(), title: newColumn.title }]);
     };
 
     /*const handleSubmit = e => {
@@ -81,36 +94,41 @@ const List = () => {
 
     //const [value, setValue] = useState('');
 
-  	/*useEffect(() => {
+        /*useEffect(() => {
 
-        	setTimeout(() => {
-          		setColumns([...columns, { id: 4, title: 'Test column'}]);
-        	}, 2000);
+            setTimeout(() => {
+                    setColumns([...columns, { id: 4, title: 'Test column'}]);
+            }, 2000);
 
-  	}, []); */
+        }, []); */
 
-      return (
+        if(!listData) return <Navigate to="/" />
+  
+    return (
         <div className={styles.list}>
           <header className={styles.header}>
-            <h2 className={styles.title}>Things to do<span>soon!</span></h2>
+            <h2 className={styles.title}>{listData.title}</h2>
           </header>
-          <p className={styles.description}>Interesting things I want to check out</p>
+          <p className={styles.description}>{listData.description}</p>
+          <SearchForm />
           <section className={styles.columns}>
             {columns.map(column =>
               <Column
                 key={column.id}
                 {...column}  />
             )}
+           
           </section>
-          <ColumnForm />
+          <ColumnForm listId={listId}/>
         </div>
-      );
+        //<SearchForm />
+    );
 };
 
-  export default List;
+export default List;
 
-  /*section className={styles.columns}>
-  <Column title="Books" icon="book" />
-  <Column title="Movies" icon="film" />
-  <Column title="Games" icon= "gamepad"/>
+/*section className={styles.columns}>
+<Column title="Books" icon="book" />
+<Column title="Movies" icon="film" />
+<Column title="Games" icon= "gamepad"/>
 </section>*/

@@ -1,18 +1,27 @@
+@import '../../styles/settings.scss';
+
 .navBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    
+   
     background-color: #333;
     color: #fff;
     padding: 0 20px;
   }
   
-  .left {
+  .navBarInner{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 24px;
   }
   
-  .right ul {
+  .navBarUl {
     list-style: none;
     padding: 0;
     display: flex;
+    gap: 20px;
+  }
+
+  .linkActive {
+    color: $color-warning;
   }
