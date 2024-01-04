@@ -21,7 +21,7 @@ import { useDispatch } from 'react-redux';
 import styles from './SearchForm.module.scss';
 import TextInput from '../TextInput/TextInput';
 import Button from '../Button/Button';
-import { updateSearchstring } from '../../redux/store';
+import { updateSearchstring } from '../../redux/searchstringRedux';
 
 const SearchForm = () => {
   const [searchTerm, setSearchTerm] = useState(''); // Stan przechowujący wartość wprowadzoną w inpucie
